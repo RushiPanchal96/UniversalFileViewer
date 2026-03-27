@@ -30,8 +30,12 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Fix jcenter() Deprecation in react-native-image-to-pdf
-        run: sed -i 's/jcenter()/mavenCentral()/g' node_modules/react-native-image-to-pdf/android/build.gradle
+      - name: Fix Deprecated configs in react-native-image-to-pdf
+        run: |
+          sed -i 's/jcenter()/mavenCentral()/g' node_modules/react-native-image-to-pdf/android/build.gradle
+          sed -i 's/compileSdkVersion 28/compileSdkVersion 34/g' node_modules/react-native-image-to-pdf/android/build.gradle
+          sed -i 's/buildToolsVersion "28.0.3"/buildToolsVersion "34.0.0"/g' node_modules/react-native-image-to-pdf/android/build.gradle
+          sed -i 's/targetSdkVersion 28/targetSdkVersion 34/g' node_modules/react-native-image-to-pdf/android/build.gradle
 
       - name: Grant execute permission for gradlew
         run: chmod +x android/gradlew
